@@ -10,14 +10,6 @@ snps_page = read.csv("PAGE_Lipids_Replication_Table.csv")
 snps_page$MarkerName = paste0(snps_page$CHR, ":", snps_page$POS_hg19)
 dim(snps_page)
 # [1] 36  5
-head(snps_page)
-#   Trait        rsID CHR  POS_hg19  MarkerName
-# 1   HDL rs539621506   1 109046381 1:109046381
-# 2   HDL  rs61519011   2 126435003 2:126435003
-# 3   HDL  rs17102282   5 144103408 5:144103408
-# 4   HDL rs373140531   7  89604535  7:89604535
-# 5   HDL  rs11782435   8  13536115  8:13536115
-# 6   HDL rs145312881   9  89053469  9:89053469
 
 # split snps by trait
 xpage = split(snps_page, snps_page$Trait)
@@ -35,14 +27,6 @@ snps_page_proxies$Proxy.MarkerName = paste0(snps_page_proxies$Chr_proxy, ":",
                                             snps_page_proxies$Pos_proxy)
 dim(snps_page_proxies)
 # [1] 585  10
-head(snps_page_proxies)
-#   Trait.s. Chr_indexSNP Pos_indexSNP    IndexSNP Chr_proxy Pos_proxy    ProxySNP R2_index_proxy_snps Index.MarkerName Proxy.MarkerName
-# 1      HDL            1    109046381 rs539621506         1 109046381 rs539621506            1.000000      1:109046381      1:109046381
-# 2      HDL            2    126435003  rs61519011         2 126421304   rs1427309            0.838408      2:126435003      2:126421304
-# 3      HDL            2    126435003  rs61519011         2 126421423   rs5834119            0.838497      2:126435003      2:126421423
-# 4      HDL            2    126435003  rs61519011         2 126422062  rs62158251            0.858461      2:126435003      2:126422062
-# 5      HDL            2    126435003  rs61519011         2 126426024   rs2195073            0.861774      2:126435003      2:126426024
-# 6      HDL            2    126435003  rs61519011         2 126429997   rs1427307            0.838749      2:126435003      2:126429997
 
 # ------------------------------------------------------------------------------                                       
 # -- MVP - load transethnic data
