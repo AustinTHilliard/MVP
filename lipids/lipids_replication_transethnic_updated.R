@@ -107,13 +107,6 @@ miss_snps_proxies = subset(snps_page_proxies, Index.MarkerName %in% miss_snps)
 dim(miss_snps_proxies)
 # [1] 23 10
 
-# some of the missing SNPS only have themselves listed as a proxy
-sapply(split(miss_snps_proxies, miss_snps_proxies$Index.MarkerName), 
-       function(f) 
-           all(f$Index.MarkerName == f$Proxy.MarkerName))
-# 10:133667886 14:105898715  14:53797383  7:107262558   8:21141988  9:110765359 
-#        FALSE        FALSE         TRUE        FALSE         TRUE         TRUE
-
 # ------------------------------------------------------------------------------                                       
 # -- find proxies in MVP data
 # ------------------------------------------------------------------------------
@@ -172,29 +165,6 @@ sapply(split(miss_snps_proxies, miss_snps_proxies$Index.MarkerName),
 }
 
 mvp_proxies = .getProxiesInMVPte(miss_snps, miss_snps_proxies)
-# --10:133667886 missing from HDL results
-#   checking proxy SNPs 10:133664144, 10:133667886, 10:133671165, 10:133673432
-#   in MVP.te.HDL.gwas.tsv.gz
-# 
-# --14:53797383 missing from HDL results
-#   checking proxy SNPs 14:53797383
-#   in MVP.te.HDL.gwas.tsv.gz
-# 
-# --14:105898715 missing from HDL results
-#   checking proxy SNPs 14:105898715, 14:105898720, 14:105911275
-#   in MVP.te.HDL.gwas.tsv.gz
-# 
-# --7:107262558 missing from LDL results
-#   checking proxy SNPs 7:107222725, 7:107224667, 7:107238447, 7:107248929, 7:107250484, 7:107253304, 7:107255548, 7:107258121, 7:107260856, 7:107261556, 7:107262558, 7:107265361, 7:107265403
-#   in MVP.te.LDL.gwas.tsv.gz
-# 
-# --9:110765359 missing from TC results
-#   checking proxy SNPs 9:110765359
-#   in MVP.te.TC.gwas.tsv.gz
-# 
-# --8:21141988 missing from TG results
-#   checking proxy SNPs 8:21141988
-#   in MVP.te.TG.gwas.tsv.gz
 
 # ------------------------------------------------------------------------------                                       
 # -- write output, then save workspace with session info
