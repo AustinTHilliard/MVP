@@ -31,7 +31,6 @@ xord = order(snps_page_proxies$Trait.s.,
              snps_page_proxies$Pos_indexSNP)
 snps_page_proxies = snps_page_proxies[xord, ]
 rm(xord)
-
 snps_page_proxies$Index.MarkerName = paste0(snps_page_proxies$Chr_indexSNP, ":", 
                                             snps_page_proxies$Pos_indexSNP)
 snps_page_proxies$Proxy.MarkerName = paste0(snps_page_proxies$Chr_proxy, ":", 
