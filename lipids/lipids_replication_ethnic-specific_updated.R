@@ -9,13 +9,37 @@ rm(list=ls())
 snps_page = read.csv("PAGE_Lipids_Replication_Table_updated.csv")
 dim(snps_page)
 # [1] 54  4
+head(snps_page)
+#   Trait        rsID CHR  POS_hg19
+# 1   HDL rs539621506   1 109046381
+# 2   HDL  rs61519011   2 126435003
+# 3   HDL  rs17102282   5 144103408
+# 4   HDL rs373140531   7  89604535
+# 5   HDL  rs11782435   8  13536115
+# 6   HDL rs145312881   9  89053469
 
 snps_page$MarkerName = paste0(snps_page$CHR, ":", snps_page$POS_hg19)
+head(snps_page)
+#   Trait        rsID CHR  POS_hg19  MarkerName
+# 1   HDL rs539621506   1 109046381 1:109046381
+# 2   HDL  rs61519011   2 126435003 2:126435003
+# 3   HDL  rs17102282   5 144103408 5:144103408
+# 4   HDL rs373140531   7  89604535  7:89604535
+# 5   HDL  rs11782435   8  13536115  8:13536115
+# 6   HDL rs145312881   9  89053469  9:89053469
 
 # load proxy snps and add columns to match format of MVP snps
 snps_page_proxies = read.csv("PAGE_Lipids_Replication_Proxies_updated.csv")
 dim(snps_page_proxies)
 # [1] 716   8
+head(snps_page_proxies)
+#   Trait.s. Chr_indexSNP Pos_indexSNP    IndexSNP Chr_proxy Pos_proxy    ProxySNP R2_index_proxy_snps
+# 1      HDL            1    109046381 rs539621506         1 109046381 rs539621506            1.000000
+# 2      HDL            2    126435003  rs61519011         2 126421304   rs1427309            0.838408
+# 3      HDL            2    126435003  rs61519011         2 126421423   rs5834119            0.838497
+# 4      HDL            2    126435003  rs61519011         2 126422062  rs62158251            0.858461
+# 5      HDL            2    126435003  rs61519011         2 126426024   rs2195073            0.861774
+# 6      HDL            2    126435003  rs61519011         2 126429997   rs1427307            0.838749
 
 # order by trait and index SNP position 
 xord = order(snps_page_proxies$Trait.s., 
@@ -28,6 +52,15 @@ snps_page_proxies$Index.MarkerName = paste0(snps_page_proxies$Chr_indexSNP, ":",
                                             snps_page_proxies$Pos_indexSNP)
 snps_page_proxies$Proxy.MarkerName = paste0(snps_page_proxies$Chr_proxy, ":", 
                                             snps_page_proxies$Pos_proxy)
+head(snps_page_proxies)
+#   Trait.s. Chr_indexSNP Pos_indexSNP    IndexSNP Chr_proxy Pos_proxy    ProxySNP R2_index_proxy_snps Index.MarkerName Proxy.MarkerName
+# 1      HDL            1    109046381 rs539621506         1 109046381 rs539621506            1.000000      1:109046381      1:109046381
+# 2      HDL            2    126435003  rs61519011         2 126421304   rs1427309            0.838408      2:126435003      2:126421304
+# 3      HDL            2    126435003  rs61519011         2 126421423   rs5834119            0.838497      2:126435003      2:126421423
+# 4      HDL            2    126435003  rs61519011         2 126422062  rs62158251            0.858461      2:126435003      2:126422062
+# 5      HDL            2    126435003  rs61519011         2 126426024   rs2195073            0.861774      2:126435003      2:126426024
+# 6      HDL            2    126435003  rs61519011         2 126429997   rs1427307            0.838749      2:126435003      2:126429997
+
 
 # get names of all PAGE snps, including proxies
 c1 = all(snps_page$MarkerName %in% 
@@ -41,6 +74,8 @@ rm(c1, c2)
 
 length(all_snps_page)
 # [1] 700
+head(all_snps_page)
+# [1] "1:109046381" "2:126421304" "2:126421423" "2:126422062" "2:126426024" "2:126429997"
 
 # ------------------------------------------------------------------------------                                       
 # -- MVP - load and filter ethnicity-specific data
@@ -197,6 +232,15 @@ t(sapply(xlist, dim))
 # allchr.HIS.TC.results_10_31_17.gz_PAGE.rds    572   16
 # allchr.HIS.TG.results_10_31_17.gz_PAGE.rds    572   16
 
+head(xlist[[1]])
+#         rsid chromosome position   alleleA alleleB average_maximum_posterior_call     info all_AA  all_AB   all_BB all_total missing_data_proportion cohort_1_hwe frequentist_add_pvalue frequentist_add_beta_1 frequentist_add_se_1
+# 1 1:16072621          1 16072621 GGTTCAATC       G                       0.978903 0.954859 118609 82423.6    14163    215196             1.08195e-15     0.334828               0.349722            -0.00334047            0.0035722
+# 2 1:16074494          1 16074494         C       T                        0.98257 0.962683 118818 82295.7    14082    215196            -5.08515e-14     0.295931               0.304151            -0.00365917           0.00356098
+# 3 1:16075835          1 16075835         C       T                       0.983586 0.964652 118681 82378.7  14136.7    215196            -5.73432e-14     0.323369               0.339895            -0.00339287           0.00355506
+# 4 1:16080501          1 16080501         G       A                        0.99853 0.996087 128183 75850.5  11162.2    215196             8.75701e-14     0.672743                  0.404            -0.00303878           0.00364144
+# 5 1:16080618          1 16080618         G       A                       0.997748 0.993889 128109 75897.4  11189.3    215196              5.6667e-14     0.709041               0.418954            -0.00294518           0.00364395
+# 6 2:17471785          2 17471785         G       A                       0.999779 0.923304 214668 527.752 0.015996    215196            -6.53902e-14            1               0.766482                0.01347            0.0453567
+
 # fix names with two dots
 names(xlist) = gsub("..", ".", names(xlist), fixed=T)
 
@@ -223,6 +267,15 @@ t(sapply(xlist_matched, dim))
 # allchr.HIS.LDL.results_10_31_17.gz_PAGE.rds   54   18
 # allchr.HIS.TC.results_10_31_17.gz_PAGE.rds    54   18
 # allchr.HIS.TG.results_10_31_17.gz_PAGE.rds    54   18
+
+head(xlist_matched[[1]])
+#   Trait        rsID CHR  POS_hg19  MarkerName alleleA alleleB average_maximum_posterior_call     info  all_AA  all_AB  all_BB all_total missing_data_proportion cohort_1_hwe frequentist_add_pvalue frequentist_add_beta_1 frequentist_add_se_1
+# 1   HDL rs539621506   1 109046381 1:109046381    <NA>    <NA>                           <NA>     <NA>    <NA>    <NA>    <NA>      <NA>                    <NA>         <NA>                   <NA>                   <NA>                 <NA>
+# 2   HDL  rs61519011   2 126435003 2:126435003       G      GT                       0.949273  0.90945 24256.3 95812.6 95127.1    215196             -4.0573e-15     0.578126               0.422256             0.00271522           0.00338338
+# 3   HDL  rs17102282   5 144103408 5:144103408       G       A                       0.997997 0.991909  162430 49051.5 3714.24    215196            -9.00045e-14     0.872317               0.112884             0.00718486           0.00453198
+# 4   HDL rs373140531   7  89604535  7:89604535    <NA>    <NA>                           <NA>     <NA>    <NA>    <NA>    <NA>      <NA>                    <NA>         <NA>                   <NA>                   <NA>                 <NA>
+# 5   HDL  rs11782435   8  13536115  8:13536115       C       T                       0.954946 0.897483  131388 73596.2 10211.5    215196             1.17662e-14     0.467829               0.689281            -0.00155833           0.00389746
+# 6   HDL rs145312881   9  89053469  9:89053469    <NA>    <NA>                           <NA>     <NA>    <NA>    <NA>    <NA>      <NA>                    <NA>         <NA>                   <NA>                   <NA>                 <NA>
 
 # define the trait represented by each dataset
 # -- why not just strsplit to get traits from names(xlist)? --
@@ -273,6 +326,15 @@ if (all(sapply(xlist_matched_traits, nrow) == table(snps_page$Trait) * 3)) {
     print("ok")
 }
 
+head(xlist_matched_traits[[1]])
+#   Trait        rsID CHR  POS_hg19   MarkerName MVP.race MVP.alleleA MVP.alleleB MVP.average_maximum_posterior_call MVP.info MVP.all_AA MVP.all_AB MVP.all_BB MVP.all_total MVP.missing_data_proportion MVP.cohort_1_hwe MVP.frequentist_add_pvalue MVP.frequentist_add_beta_1 MVP.frequentist_add_se_1
+# 1   HDL  rs10430621  10 133667886 10:133667886      AFR        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+# 2   HDL  rs10430621  10 133667886 10:133667886      EUR        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+# 3   HDL  rs10430621  10 133667886 10:133667886      HIS        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+# 4   HDL rs115207757  17  79371257  17:79371257      AFR        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+# 5   HDL rs115207757  17  79371257  17:79371257      EUR        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+# 6   HDL rs115207757  17  79371257  17:79371257      HIS        <NA>        <NA>                               <NA>     <NA>       <NA>       <NA>       <NA>          <NA>                        <NA>             <NA>                       <NA>                       <NA>                     <NA>
+
 # collapse resulting list to a single data frame
 xdf_matched_traits = as.data.frame(do.call(rbind, xlist_matched_traits))
 rownames(xdf_matched_traits) = NULL
@@ -296,6 +358,20 @@ sort(table(apply(xdf_matched_traits[,c("Trait","MVP.race")],
                  1, paste0, collapse=":")[is.na(xdf_matched_traits$MVP.alleleA)]))
 # LDL:AFR LDL:HIS LDL:EUR  TC:AFR  TC:HIS HDL:AFR HDL:HIS  TC:EUR  TG:AFR  TG:HIS HDL:EUR  TG:EUR 
 #       1       1       3       4       4       6       6       6       8       8       9       9 
+
+# 
+miss_snps = lapply(split(subset(xdf_matched_traits, is.na(MVP.alleleA))$MarkerName,  
+                         subset(xdf_matched_traits, is.na(MVP.alleleA))$Trait), unique)
+
+#
+par(mfrow=c(2,2))
+xcuts = c(0, 1e-8, 1e-6, 1e-4, 1e-2, 1e-1, 1)
+for (tr in c("HDL","TC","LDL","TG")) {
+    barplot(table(cut(as.numeric(xdf_matched_traits$MVP.frequentist_add_pvalue)[xdf_matched_traits$Trait == tr], xcuts)),
+            main=tr, col='lightgrey')
+    abline(h=5, col='darkgrey')
+}
+
 
 xdf_m_spl = split(xdf_matched_traits[,c(1,2,5:7)], xdf_matched_traits$MarkerName)
 # # ------------------------------------------------------------------------------                                       
