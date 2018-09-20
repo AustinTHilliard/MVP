@@ -428,7 +428,7 @@ flt = apply(flt[, c("Trait", "MarkerName", "MVP.race")], 1,
 tocheck = apply(mvp_proxies_df[, c("Trait", "Index.MarkerName", "MVP.race")], 1,
                 paste0, collapse="_")
 
-# filter proxy results to only relevatn trait/race combinations
+# filter proxy results to only relevant trait/race combinations
 mvp_proxies_df = mvp_proxies_df[tocheck %in% flt, ]
 
 # plot histograms of proxy MVP p-values for each trait
