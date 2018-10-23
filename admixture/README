@@ -1,1 +1,4 @@
-Files related to admixture analysis of MVP genotype data
+Files related to admixture analysis of MVP genotype data.
+
+This is only meant to be a code backup. 
+Code may not be reproducible, especially if it depends on raw genotype data, which cannot leave the VA.
